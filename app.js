@@ -1,4 +1,5 @@
 import express from "express";
+import { writeFile } from "fs/promises";
 
 const app = express();
 const port = 3000;
@@ -15,6 +16,7 @@ app.get("/posts/:id", async (req, res) => {
     );
     const myData = await response.json();
     res.json(myData);
+    await writeFile("data.json", JSON.stringify(myData, null, 2));
   } catch (error) {
     console.error(error);
     res.status(500).send("You have Server Error");
